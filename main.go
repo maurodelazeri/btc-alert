@@ -41,7 +41,7 @@ func main() {
 		}
 	}()
 
-	pairs := []string{"nano", "btc", "eth"}
+	pairs := []string{"nano", "bitcoin", "ethereum"}
 	for {
 		for _, pair := range pairs {
 			coinTicker, _ := client.GetTicker(pair)
@@ -67,7 +67,7 @@ func sendMessage(message string) {
 	if err != nil {
 		log.Panic(err)
 	}
-	msg := tgbotapi.NewMessage(304403970, message)
-	//msg := tgbotapi.NewMessage(-295823428, message)
+	//msg := tgbotapi.NewMessage(304403970, message)
+	msg := tgbotapi.NewMessage(-295823428, message)
 	bot.Send(msg)
 }
