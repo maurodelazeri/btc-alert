@@ -26,16 +26,14 @@ func main() {
 	go func() {
 		for {
 			coinTicker, _ := client.GetTicker("bitcoin")
-			s := fmt.Sprintf("Hourly Update (BTC)  \n Price: %s (USD) %s (BTC) \n Percent Change 1H %s \n Percent Change 24H %s \n Percent Change 7D %s \n", coinTicker.PriceUsd, coinTicker.PriceBtc, coinTicker.PercentChange1H, coinTicker.PercentChange24H, coinTicker.PercentChange7D)
-			sendMessage(s)
+			s1 := fmt.Sprintf("Hourly Update (BTC)  \n Price: %s (USD) %s (BTC) \n Percent Change 1H %s \n Percent Change 24H %s \n Percent Change 7D %s \n", coinTicker.PriceUsd, coinTicker.PriceBtc, coinTicker.PercentChange1H, coinTicker.PercentChange24H, coinTicker.PercentChange7D)
 
 			coinTicker, _ = client.GetTicker("nano")
-			s = fmt.Sprintf("Hourly Update (NANO)  \n Price: %s (USD) %s (BTC) \n Percent Change 1H %s \n Percent Change 24H %s \n Percent Change 7D %s \n", coinTicker.PriceUsd, coinTicker.PriceBtc, coinTicker.PercentChange1H, coinTicker.PercentChange24H, coinTicker.PercentChange7D)
-			sendMessage(s)
+			s2 := fmt.Sprintf("Hourly Update (NANO)  \n Price: %s (USD) %s (BTC) \n Percent Change 1H %s \n Percent Change 24H %s \n Percent Change 7D %s \n", coinTicker.PriceUsd, coinTicker.PriceBtc, coinTicker.PercentChange1H, coinTicker.PercentChange24H, coinTicker.PercentChange7D)
 
 			coinTicker, _ = client.GetTicker("ethereum")
-			s = fmt.Sprintf("Hourly Update (ETH)  \n Price: %s (USD) %s (BTC) \n Percent Change 1H %s \n Percent Change 24H %s \n Percent Change 7D %s \n", coinTicker.PriceUsd, coinTicker.PriceBtc, coinTicker.PercentChange1H, coinTicker.PercentChange24H, coinTicker.PercentChange7D)
-			sendMessage(s)
+			s3 := fmt.Sprintf("Hourly Update (ETH)  \n Price: %s (USD) %s (BTC) \n Percent Change 1H %s \n Percent Change 24H %s \n Percent Change 7D %s \n", coinTicker.PriceUsd, coinTicker.PriceBtc, coinTicker.PercentChange1H, coinTicker.PercentChange24H, coinTicker.PercentChange7D)
+			sendMessage(s1 + "\n" + s2 + "\n" + s3)
 
 			time.Sleep(time.Hour)
 		}
