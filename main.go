@@ -9,6 +9,7 @@ import (
 	"gopkg.in/telegram-bot-api.v4"
 
 	"github.com/isvaldo/go-coinmarketcap-client"
+	"github.com/sirupsen/logrus"
 )
 
 var client coinmarket.Interface
@@ -44,15 +45,20 @@ func main() {
 		for _, pair := range pairs {
 			coinTicker, _ := client.GetTicker(pair)
 			priceChange, _ := strconv.ParseFloat(coinTicker.PercentChange1H, 64)
+			var found bool
 			if priceChange > 1 {
 				s := fmt.Sprintf("Alert ("+pair+")  \n Price: %s (USD) %s (BTC) \n Percent Change 1H %s", coinTicker.PriceUsd, coinTicker.PriceBtc, coinTicker.PercentChange1H)
 				sendMessage(s)
-				time.Sleep(time.Minute * 30)
+				found = true
 			}
 			if priceChange < -5 {
 				s := fmt.Sprintf("Alert ("+pair+")  \n Price: %s (USD) %s (BTC) \n Percent Change 1H %s", coinTicker.PriceUsd, coinTicker.PriceBtc, coinTicker.PercentChange1H)
 				sendMessage(s)
+				found = true
+			}
+			if found {
 				time.Sleep(time.Minute * 30)
+				found = false
 			}
 		}
 		time.Sleep(time.Minute * 5)
@@ -68,4 +74,5 @@ func sendMessage(message string) {
 	//msg := tgbotapi.NewMessage(304403970, message)
 	msg := tgbotapi.NewMessage(-295823428, message)
 	bot.Send(msg)
+	logrus.Info("Message sent ", message)
 }
